@@ -13,6 +13,7 @@ singularity run --cleanenv \
     --bind /jukebox/norman/rsiyer \
     /jukebox/norman/rsiyer/fmriprep_24.0.1.sif \
     --participant-label sub-$1 \
+    --bids-filter-file /project/code/preprocessing/bids-filter-file.json \
     --fs-license-file /project/code/preprocessing/license.txt \
     --no-submm-recon \
     --fs-no-reconall \

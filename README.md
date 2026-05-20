@@ -38,23 +38,13 @@
     - verify manually that the data is BIDS-compatible
         - address any red (errors); can ignore the yellow (warnings) because fMRIPrep will still work
 
-Can easily run the next three commands in sequence with ```./run_fmriprep.sh 003 && ./run_mriqc.sh 003 && ./run_mriqc_group.sh```      
-
-
-6. ```preprocessing/run_mriqc.sh```
-    - example usage: ```./run_mriqc.sh 003```
-    - quality control checks, verify outputs manually to look for outliers 
-        - absolute values don't matter as much
-      
-7. ```preprocessing/run_mriqc_group.sh```
-    - example usage: ```./run_mriqc_group.sh```
-    - quality control checks, verify outputs manually to look for outliers
-        - absolute values don't matter as much
-
-8. ```preprocessing/run_fmriprep.sh```
-    - example usage: ```./run_fmriprep.sh 003```
-    - runs fMRIPrep for all sessions for an individual participant
-
+6. Run MRIQC and fMRIPrep
+    - double-check that the subject folder you are preprocessing is called data (not data_sub-005; you can change it back to this in the GLMsingle section, see below)
+    - double-check the subject number in `slurm_mriqc.sh`
+    - update the session number in `slurm_fmriprep.sh` by changing the SLURM job array number
+    - update the BIDS filter file to specify the sessions that fMRIPrep should preprocess
+    - submit both jobs with ```sbatch slurm_fmriprep.sh && slurm_mriqc.sh```
+    - MRIQC does quality control checks, verify outputs manually to look for outliers. absolute values don't matter as much
 
 ## GLMsingle
 1. setup
@@ -92,15 +82,11 @@ Can easily run the next three commands in sequence with ```./run_fmriprep.sh 003
     - once GLMsingle has run, move the output (only need TYPED_FITHRF_GLMDENOISE_RR.npz) into the glmsingle directory e.g. /scratch/gpfs/ri4541/MindEyeV2/src/mindeyev2/glmsingle_sub-003_ses-01
     - move the brain mask (..._brain.nii.gz) and the nsdgeneral mask (_nsdgeneral.nii.gz) into the same glmsingle directory as above
     - move the csv file (sub-003_ses-01.csv) to the mindeye directory (home/ri4541/real_time_mindEye2/csv)
-
 2. Run main notebook on Della as a SLURM job
     - update ```/home/ri4541/real_time_mindEye2/run_all_batch.slurm``` with the appropriate variables before submitting
     - ```sbatch /home/ri4541/real_time_mindEye2/run_all_batch.slurm```
-
 3. Sync run with WandB
     - get the wandb sync command from the slurm .err file
     - run that wandb command in Della terminal, example usage: ```wandb sync /home/ri4541/real_time_mindEye2/wandb/offline-run-20250624_162835-sub-005_ses-04_task-B_bs24_MST_rishab_MSTsplit```
-
 4. If desired, run recon_inference, enhanced_recon_inference, and final_evaluations notebooks to get the full list of evaluations
-
 5. Update the [MindEye Evaluations spreadsheet](https://docs.google.com/spreadsheets/d/1-dbmr4ovl2-4-MFNAL1DqLS651KM_ihjDkkUeP1kHXs/edit?usp=sharing) with the new scan

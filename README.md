@@ -43,7 +43,8 @@
     - double-check the subject number in `slurm_mriqc.sh`
     - update the session number in `slurm_fmriprep.sh` by changing the SLURM job array number
     - update the BIDS filter file to specify the sessions that fMRIPrep should preprocess
-    - submit both jobs with ```sbatch slurm_fmriprep.sh && slurm_mriqc.sh```
+    - ensure you run the following from `code/preprocessing/`
+    - submit both jobs with ```sbatch slurm_fmriprep.sh && sbatch slurm_mriqc.sh```
     - MRIQC does quality control checks, verify outputs manually to look for outliers. absolute values don't matter as much
 
 ## GLMsingle

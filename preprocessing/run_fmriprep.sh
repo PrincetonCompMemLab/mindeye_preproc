@@ -21,6 +21,7 @@ singularity run --cleanenv \
     --nthreads 8 --omp-nthreads 8 \
     --output-spaces T1w fsaverage:den-41k \
                     MNI152NLin2009cAsym:res-native \
+    -d /project/data/bids/derivatives/fmriprep \
     --write-graph --work-dir /scratch \
     /project/data/bids /project/data/bids/derivatives/fmriprep participant #\
     #--ignore fieldmaps --use-syn-sdc

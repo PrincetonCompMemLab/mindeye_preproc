@@ -63,15 +63,19 @@ for arg in "$@"; do
     case $arg in
         --ref_session=*)
             ref_session="${arg#*=}"
+            echo ref_session="${arg#*=}"
             ;;
         --multisession)
             multisession=1
+            echo multisession=1
             ;;
         --dry-run)
             dry_run=1
+            echo dry_run=1
             ;;
         --data-folder=*)
             data_folder="${arg#*=}"
+            echo data_folder="${arg#*=}"
             ;;
         *)
             ;;
@@ -94,18 +98,17 @@ roi_img_path=$SCRIPT_DIR/nsdgeneral_to_MNI.nii.gz
 # ----------------------
 # Set MNI-to-T1 Transform Path
 # ----------------------
-if [[ "$session_label" =~ ^ses-[0-9]+$ ]]; then
+if [ $multisession -ne 1 ]; then
     # Single-session case
     ref_session=${ref_session:-$session_label}
     mni_to_T1_xfm=$DERIV_DIR/fmriprep/$SUBJ_DIR/${ref_session}/anat/${SUBJ_DIR}_${ref_session}_from-MNI152NLin2009cAsym_to-T1w_mode-image_xfm.h5
     first_session=$session_label
 else
     # Multi-session case
-    multisession=1
     mni_to_T1_xfm=$DERIV_DIR/fmriprep/$SUBJ_DIR/anat/${SUBJ_DIR}_from-MNI152NLin2009cAsym_to-T1w_mode-image_xfm.h5
 
-    # Extract first 6 characters (e.g., ses-01 from ses-01-02)
-    first_session=${session_label:0:6}
+    # Works for ses-01, ses-100, ses-1000, etc.
+    first_session=$(echo "$session_label" | cut -d'-' -f1,2)
 fi
 
 subject_template_path=$DERIV_DIR/fmriprep/$SUBJ_DIR/${first_session}/func/${SUBJ_DIR}_${first_session}_task-${task_name}_run-01_space-T1w_boldref.nii.gz

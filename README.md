@@ -65,12 +65,12 @@
     - create an NSDgeneral mask for a subject containing primarily visual cortex voxels
       
 4. ```analysis/GLMsingle.ipynb```
-    - if submitting a SLURM job, edit ```run_glmsingle.sh``` and ```GLMsingle.ipynb``` with the desired paths and settings
-    - if running directly (say on Scotty's login node):
+    - on the first time, (esp. for sessions with unique structure compared to previous ones), it is recommended to start with `GLMsingle.ipynb`, modifying as needed (e.g., the runs database)
+    - when ready to run, prepare the notebook as needed, then run it using the python script to enable detailed logging
+        - if you aren't in tmux already, it is highly recommended to run the following in tmux because GLMsingle can take several hours
         - ```source ~/mindeye/bin/activate```
-        - use ```run_glmsingle.py``` to easily set various environment variables as command line arguments
-        - ```run_glmsingle.py --help``` for a list of all accepted arguments
-        - example usage: ```python ~/rtmindeye/code/analysis/run_glmsingle.py data_sub-005_ses-04 glmsingle_ses-04_task-D sub-005 ses-04 D```
+        - ```python run_glmsingle.py --help``` for a list of all accepted arguments
+        - example usage: ```python run_glmsingle.py data_sub-005_ses-04 glmsingle_ses-04_task-D sub-005 ses-04 D```
     - get model accuracy (r^2)
     - get single-trial betas
     - get best-fitting HRF

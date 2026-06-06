@@ -371,6 +371,9 @@ def load_design_files(sub, session, func_task_name, designdir, design_ses_list=N
         elif (sub=='sub-005' and session in ('ses-01', 'ses-02', 'ses-03', 'ses-07')):
             filename = f"{designdir}/csv/{sub}_{session}.csv"
 
+        elif (sub=='sub-005' and session in ('ses-06')):
+            filename = f"{designdir}/csv/rtdemo/{sub}_{session}.csv"
+
         elif (sub=='sub-006' and session in ('ses-01')):
             if func_task_name == 'B':
                 filename = f"{designdir}/csv/{sub}_ses-01.csv"
@@ -381,12 +384,12 @@ def load_design_files(sub, session, func_task_name, designdir, design_ses_list=N
         
         elif (sub=='sub-005' and session in ('ses-04')):
             if func_task_name == 'D':
-                filename = f"{designdir}/csv/{sub}_ses-04.csv"
+                filename = f"{designdir}/csv/bakeoff/{sub}_ses-04.csv"
             elif func_task_name == 'E':
-                filename = f"{designdir}/csv/{sub}_ses-05.csv"
+                filename = f"{designdir}/csv/bakeoff/{sub}_ses-05.csv"
             elif func_task_name == 'B':
-                filename = f"{designdir}/csv/{sub}_ses-06.csv"
-
+                filename = f"{designdir}/csv/bakeoff/{sub}_ses-06.csv"
+            
         elif (sub=='sub-007' and session in ('ses-01')):
             if func_task_name == 'E':
                 filename = f"{designdir}/csv/sub-008_ses-01.csv"
